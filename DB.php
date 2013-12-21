@@ -14,14 +14,6 @@ class DB
         $this->smc =& $smcFunc;
     }
 
-    /**
-     * @return array
-     */
-    public static function get($query, array $args = [], $func = null)
-    {
-        return self::query($query, $args)->fetch_all($func);
-    }
-
     public static function query($sql, array $args = [])
     {
         $db = new DB();
@@ -86,11 +78,6 @@ class DB
         $m = ['num_rows', 'affected_rows', 'fetch_row', 'fetch_assoc', 'free']; 
         if (in_array($key, $m))
             return $this->$key();
-
-        /*
-        if (array_key_exists($key, $this->data))
-            return $this->data[$key];
-        */
 
         trigger_error('Key not found');
     }
