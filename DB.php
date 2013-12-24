@@ -6,6 +6,7 @@ class DB
 {
     public $q;
     public $smc;
+    protected $methods = ['num_rows', 'affected_rows', 'fetch_row', 'fetch_assoc', 'free'];
 
     public function __construct()
     {
@@ -75,8 +76,7 @@ class DB
 
     public function __get($key)
     {
-        $m = ['num_rows', 'affected_rows', 'fetch_row', 'fetch_assoc', 'free']; 
-        if (in_array($key, $m))
+        if (in_array($key, $this->methods, true))
             return $this->$key();
 
         trigger_error('Key not found');
