@@ -8,19 +8,19 @@ class DB
     public $smc;
     protected $methods = ['num_rows', 'affected_rows', 'fetch_row', 'fetch_assoc', 'free'];
 
-    public function __construct()
-    {
-        global $smcFunc;
-
-        $this->smc =& $smcFunc;
-    }
-
     public static function query($sql, array $args = [])
     {
         $db = new DB();
         $db->_query($sql, $args);
 
         return $db;
+    }
+
+    public function __construct()
+    {
+        global $smcFunc;
+
+        $this->smc =& $smcFunc;
     }
 
     protected function _query($sql, array $args = [])
@@ -76,7 +76,7 @@ class DB
 
     public function __get($key)
     {
-        if (in_array($key, $this->methods, true))
+        if (in_array($key, $this->methods))
             return $this->$key();
 
         trigger_error('Key not found');
