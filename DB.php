@@ -10,7 +10,7 @@ class DB
 
     public static function query($sql, array $args = [])
     {
-        $db = new DB();
+        $db = new self();
         $db->_query($sql, $args);
 
         return $db;
