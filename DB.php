@@ -21,6 +21,7 @@ class DB
         global $smcFunc;
 
         $this->smc =& $smcFunc;
+        $this->methods = array_flip($this->methods);
     }
 
     protected function _query($sql, array $args = [])
@@ -76,7 +77,7 @@ class DB
 
     public function __get($key)
     {
-        if (in_array($key, $this->methods))
+        if (isset($this->methods[$key]))
             return $this->$key();
 
         trigger_error('Key not found');
