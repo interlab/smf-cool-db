@@ -57,15 +57,15 @@ class DB
     /**
      * @return array
      */
-    public function fetch_all($func = null)
+    public function fetch_all($index = null)
     {
         $ary = [];
         if (!$this->num_rows())
             return $ary;
 
-        if (is_callable($func)) {
+        if ($index) {
             while($row = $this->fetch_assoc())
-                $func($ary, $row);
+                $ary[$row[$index]] = $row;
         } else {
             while($row = $this->fetch_assoc())
                 $ary[] = $row;
